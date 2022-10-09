@@ -18,6 +18,11 @@ sample = {
     "referal": "cba124"
 }
 
+@app.route('/index', methods=['GET', 'POST'])
+def index():
+    response = jsonify({"test":"test"})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/create', methods=['GET', 'POST'])
 def create():
@@ -28,6 +33,31 @@ def create():
     
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
+@app.route('/dashboard', methods=['GET'])
+def dashboard():
+    users = [
+        {
+            "name":"Jane Doe",
+            "status": "Link Sent",
+            "date": "09/28/22",
+        },
+        {
+            "name":"John Smith",
+            "status": "Account Created",
+            "date": "09/27/22",
+        },
+        {
+            "name":"Burger King",
+            "status": "Verified Customer",
+            "date": "09/28/22",
+        },
+    ]
+
+    response = jsonify(users)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
 
 if __name__ == "__main__":
     app.run(debug=True)
