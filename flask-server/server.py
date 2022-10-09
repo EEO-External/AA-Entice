@@ -1,22 +1,21 @@
 from urllib import request, response
 from flask import Flask, render_template, session, request, redirect, url_for, jsonify
-from flask_pymongo import PyMongo
+from flask_cors import CORS
+from flask_bcrypt import Bcrypt
+from flask_session import Session
+from flask_mongoengine import MongoEngine
+from flask_mongo_sessions import MongoDBSessionInterface
+from config import ApplicationConfig
 from models import *
+
+
 app = Flask(__name__)
-from pymongo import MongoClient
-client = MongoClient("mongodb+srv://kennethri:T2elJXbvg85FayiU@cluster0.fqadzuj.mongodb.net/?retryWrites=true&w=majority")
-users = db = client.database.users
+app.config.from_object(ApplicationConfig)
 
 
-sample = {
-    "username": "kennyice",
-    "password": "1234",
-    "status": "active",
-    "points": 1200,
-    "goal": 5000,
-    "referee": "abc123",
-    "referal": "cba124"
-}
+cors = CORS(app, supports_credentials=True)
+bcrypt = Bcrypt(app)
+server_session = Session(app)
 
 
 @app.route('/create', methods=['GET', 'POST'])

@@ -1,0 +1,9 @@
+flask~=2.0.3
+# flask-mongodb
+flask-bcrypt
+python-dotenv~=0.19.2
+flask-session
+flask-cors
+flask_mongoengine
+flask-mongo-sessions
+flask.ext

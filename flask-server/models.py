@@ -1,18 +1,52 @@
-from server import db
+from uuid import uuid4
+from pymongo import MongoClient
+from datetime import datetime
+
+client = MongoClient("mongodb+srv://kennethri:T2elJXbvg85FayiU@cluster0.fqadzuj.mongodb.net/?retryWrites=true&w=majority")
+users = client.database.users
 
 class User():
-    """
-    __tablename__='Users'
-    referal=db.Column(db.String(40),primary_key=True)
-    username=db.Column(db.String(40))
-    password=db.Column(db.String(40))
-    status=db.Column(db.String(40))
-    #points=db.Column(db.Integer)
-    #goal=db.Column(db.Integer)
-    referee=db.Column(db.String(40))
-    """
+    def __init__(self, fname, lname, email, referal = None, id = uuid4().hex):
+        
+        invalid_id=users.find_one({'id': id})
+
+        while invalid_id != {}:
+            id = uuid4().hex
+            invalid_id=users.find_one({'id': id})
+
+        self.fname = fname
+        self.lname = lname
+        self.email = email
+        self.referal = referal
+        self.status = "Link Sent"
+        self.date = datetime.today().strftime('%Y-%m-%d')
+        self.id = uuid4().hex
     
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
+    def to_obj(self):
+        return {
+            "fname": self.fname,
+            "lname": self.lname,
+            "email": self.email,
+            "status": self.status,
+            "date": self.date,
+            "referal": self.referal,
+            "id": self.id
+        }
+    
+    def insert_to_db(self):
+        users.insert_one(self.to_obj)
+
+    def getId(self):
+        return self.id
+    
+    def getReferal(self):
+        return self.referal
+    
+    def getStatus(self):
+        return self.status
+    
+    def getStatus(self, status):
+        self.status = status
+
+
     
