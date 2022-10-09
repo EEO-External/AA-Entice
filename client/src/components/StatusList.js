@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from 'antd';
+//import { Card } from 'antd';
 import './StatusList.less';
 
 function StatusList({data}) {
