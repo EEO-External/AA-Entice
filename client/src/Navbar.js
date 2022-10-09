@@ -9,7 +9,7 @@ function Navbar() {
   return (
     <div classname='navbar'>
         <div className="logo"><a href="www.aa.com">
-          <img src="AA-Entice\client\src\assets\aaLogoTrans.png" alt="American Airline Logo"></img></a>
+          <img src="aaLogoTrans.png" alt="American Airline Logo"></img></a>
             <h2>American Airlines</h2>
         </div>
         <ul className="nav-menu">
